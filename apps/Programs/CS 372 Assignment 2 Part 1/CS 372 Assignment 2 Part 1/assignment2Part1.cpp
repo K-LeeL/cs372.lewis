@@ -1,3 +1,13 @@
+// Assignment 02, Part 1: Creating A Vector
+// Due : Tue Aug 29, 2023 11 : 59pm
+//
+// File:   assignment2Part1.cpp
+// Author: Kaylee Lewis
+//
+// Purpose:
+//   Build a 'vector' class for a class library.
+//
+
 #include <vector>
 #include <iostream>
 
