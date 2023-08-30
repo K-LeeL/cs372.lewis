@@ -1,15 +1,17 @@
 // Assignment 02, Part 1: Creating A Vector
 // Due : Tue Aug 29, 2023 11 : 59pm
 //
-// File:   assignment2Part1.cpp
+// File:   assignment2part1.cpp
 // Author: Kaylee Lewis
 //
 // Purpose:
 //   Build a 'vector' class for a class library.
-//
-
-#include <vector>
+//   Test the newly made class.
 #include <iostream>
+
+#include <chrono>
+
+const int PrintInterval = 10;
 
 // Template parameter 'T' allows vector of any data type
 template <typename T>
@@ -17,7 +19,7 @@ template <typename T>
 class Vector
 {
   private:
-       T* Array = new T[1];
+       T* vArray = new T[1];
        int vCapacity = 1;
        int length = 0;
 
@@ -31,12 +33,12 @@ class Vector
                for (int i = 0; i < length; i++) 
                {
                     // Copy existing elements to the new array
-                    temp[i] = Array[i];
+                    temp[i] = vArray[i];
                }
 
-               delete[] Array;
+               delete[] vArray;
                vCapacity = newCapacity;
-               Array = temp;
+               vArray = temp;
 
           } else 
           {
@@ -48,7 +50,7 @@ class Vector
      // Constructor
      Vector() 
      {
-          Array = new T[1];
+          vArray = new T[1];
           vCapacity = 1;
           length = 0;
      }
@@ -57,8 +59,8 @@ class Vector
      // Destructor
      ~Vector() 
      {
-          delete[] Array;
-          Array = nullptr;
+          delete[] vArray;
+          vArray = nullptr;
      }
 
      // Only special case where the index is equal to the capacity
@@ -72,7 +74,7 @@ class Vector
           } else 
           {
                // Update the element at the specified index
-               Array[index] = data;
+               vArray[index] = data;
 
           }
      }
@@ -88,7 +90,7 @@ class Vector
                expand(2 * vCapacity);
           }
 
-          Array[length] = data;
+          vArray[length] = data;
           length++;
      }
 
@@ -102,7 +104,7 @@ class Vector
                exit(1);
           } else 
           {
-               return Array[index];
+               return vArray[index];
           }
      }
 
@@ -123,7 +125,7 @@ class Vector
      {
           for (int i = 0; i < length; i++)
           {
-               std::cout << Array[i] << " ";
+               std::cout << vArray[i] << " ";
           }
 
           std::cout << std::endl;
@@ -141,7 +143,7 @@ class Vector
           
                for (int i = 0; i < length; i++) 
                {
-                    if (Array[i] != other.at(i)) 
+                    if (vArray[i] != other.at(i)) 
                     {
                          return false;
                     }
@@ -159,7 +161,7 @@ class Vector
                exit(1);
           }
 
-          return Array[i];
+          return vArray[i];
      }
 
      // Copy constructor to work in concert with new operator
@@ -167,11 +169,11 @@ class Vector
      {
 
           // Reset self
-          this->Array = new T[obj.capacity()];
+          this->vArray = new T[obj.capacity()];
 
           for (int i = 0; i < obj.size(); i++) 
           {
-               Array[i] = obj.at(i);
+               vArray[i] = obj.at(i);
           }
      }
 
@@ -185,8 +187,8 @@ class Vector
           }
 
           // Clean up
-          delete[] Array;
-          Array = new T[1];
+          delete[] vArray;
+          vArray = new T[1];
           vCapacity = 1;
           length = 1;
 
@@ -201,15 +203,48 @@ class Vector
      // Method to return an iterator to the beginning of the vector
      T* begin() 
      { 
-          return Array; 
+          return vArray; 
      }
 
      // Method to return an iterator to the end of the vector
      T* end() 
      { 
-          return Array + length; 
+          return vArray + length; 
      }
 
+};
+
+class VecTester 
+{
+    private:
+     Vector<int> testVector = Vector<int>();
+
+     void fillVector(size_t cap) {
+          for (int i = 0; i < cap; ++i) {
+               testVector[i] = i;
+          }
+     }
+
+    public:
+     void tester() {
+          size_t currentCap = testVector.capacity();
+          std::cout << "Starting capacity: " << currentCap << std::endl;
+          for (int i = 0; i <= 500; i++) {
+               if ((i % PrintInterval) == 0) {
+                    std::cout << "Current cap: " << currentCap << std::endl;
+               }
+               auto start = std::chrono::steady_clock::now();
+               testVector.push_back(i);
+               auto end = std::chrono::steady_clock::now();
+               currentCap = testVector.capacity();
+               std::chrono::duration<double> elaspedSeconds = end - start;
+               if ((i % PrintInterval) == 0) {
+                    std::cout << "For increase capacity to " << currentCap
+                              << " took " << elaspedSeconds.count()
+                              << " seconds" << std::endl;
+               }
+          }
+     }
 };
 
 int main() 
@@ -229,5 +264,10 @@ int main()
      std::cout << v1[0] << " " << v1[1] << std::endl;
      std::cout << std::endl;
 
+     VecTester testingObject;
+     std::cout << "Starting test: " << std::endl;
+     testingObject.tester();
+
      return 0;
 }
+
