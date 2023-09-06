@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{d22fe089-6c19-4078-bb7f-bb4db73905c7}</ProjectGuid>
-    <RootNamespace>CS372Assignment3Part1</RootNamespace>
+    <ProjectGuid>{9f9fae00-cc47-4061-aaf3-e553f9fda344}</ProjectGuid>
+    <RootNamespace>CS372Assignment3Part4</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -127,7 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="assignment3part1.cpp" />
+    <ClCompile Include="assignment3part4.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Library.h" />
