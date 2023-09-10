@@ -6,6 +6,12 @@
 
 #include <chrono>
 
+//https://codereview.stackexchange.com/questions/260324/custom-vector-implementation-in-c 
+//https://www.geeksforgeeks.org/creating-a-vector-of-class-objects-in-cpp/
+//https://www.geeksforgeeks.org/vector-in-cpp-stl/
+//https://www.geeksforgeeks.org/how-to-implement-our-own-vector-class-in-c/
+//https://www.geeksforgeeks.org/program-to-create-custom-vector-class-in-c/
+
 const int PrintInterval = 10;
 
 template< typename Thing >
@@ -99,7 +105,7 @@ private:
     }
 };
 
-// Vector Test
+// Vector Test from stlmyvectest.cpp
 class VecTester
 {
 private:

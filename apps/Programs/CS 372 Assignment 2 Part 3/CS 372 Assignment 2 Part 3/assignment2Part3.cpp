@@ -20,6 +20,8 @@
 //             reference to the removed item.
 //        Implement the 'ReceiptBag' class and text scripts in the library
 //
+//   Code sources: Assembled from Dr. Lewis (My Glorious Instructor) vector.hpp, bag.hpp, bag.h, vector.h, and myvector.h
+//   Test sources: Assembled from Dr. Lewis (My Glorious Instructor) stlmyvectest.cpp
 #include <set>
 #include "Bag.h"
 
