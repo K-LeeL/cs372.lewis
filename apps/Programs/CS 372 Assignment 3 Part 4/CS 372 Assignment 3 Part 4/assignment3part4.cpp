@@ -13,86 +13,31 @@
 // Use this new function on the List class to insert as the way to insert items into the priority list at the correct
 // location.
 //
+// https://www.geeksforgeeks.org/priority-queue-using-linked-list/
+// https://en.cppreference.com/w/cpp/container/queue
+// https://en.cppreference.com/w/cpp/container/priority_queue
+// https://learn.microsoft.com/en-us/troubleshoot/developer/visualstudio/cpp/libraries/stl-priority-queue-class-custom-type
+// https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1.insert?view=net-7.0
+
+
 #include <iostream>
-#include <stdexcept>
 #include "Library.h"
-
-// PriorityData definition
-template< typename T >
-struct PriorityData
-{
-public:
-  T data = T( );
-  int priority = 0;
-  PriorityData() : data(T()), priority(0) {}
-  PriorityData(T d, int p) : data(d), priority(p){}
-
-
-
-
-    bool operator>(const PriorityData &other) const {
-    return priority > other.priority;
-  }
-};
-
-// PriorityList definition
-template< typename T >
-class PriorityList
-{
-private:
-  List< PriorityData< T > > dataList;
-
-public:
-  PriorityList( )
-  {
-  }
-
-  void insert( const T &data, int priority )
-  {
-    PriorityData< T > newData( data, priority );
-    if( dataList.empty( ) )
-    {
-      dataList.push_front( newData );
-      return;
-    }
-    auto it = dataList.begin( );
-    while( it != dataList.end( ) && newData > *it )
-    {
-      ++it;
-    }
-    dataList.insert( it, newData );
-  }
-
-  void pop_highest( )
-  {
-    if( !dataList.empty( ) )
-    {
-      dataList.pop_front( );
-    }
-  }
-
-  T highest( ) const
-  {
-    if( !dataList.empty( ) )
-    {
-      return dataList.front( ).data;
-    }
-    throw std::runtime_error( "The priority list is empty" );
-  }
-};
 
 int main( )
 {
-  PriorityList< int > pList;
-  pList.insert( 10, 1 );
-  pList.insert( 20, 3 );
-  pList.insert( 30, 2 );
+    List< int > datalist;
 
-  std::cout << "The highest-priority element is: " << pList.highest( ) << std::endl;
+    datalist.push_front( 777, 10 );
+    datalist.priorityInsert( 137, 1 );
+    datalist.priorityInsert( 220, 5 );
+    datalist.priorityInsert( 320, 2 );
+    datalist.priorityInsert( 315, 3 );
 
-  pList.pop_highest( );
+    std::cout << "The highest-priority element is: " << datalist.front( ) << std::endl;
 
-  std::cout << "The highest-priority element after pop is: " << pList.highest( ) << std::endl;
+    datalist.pop_front( );
 
-  return 0;
+    std::cout << "The highest-priority element after pop is: " << datalist.front( ) << std::endl;
+
+    return 0;
 }

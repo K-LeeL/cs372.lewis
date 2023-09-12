@@ -22,6 +22,12 @@
 //
 //   Code sources: Assembled from Dr. Lewis (My Glorious Instructor) vector.hpp, bag.hpp, bag.h, vector.h, and myvector.h
 //   Test sources: Assembled from Dr. Lewis (My Glorious Instructor) stlmyvectest.cpp
+// https://codereview.stackexchange.com/questions/260324/custom-vector-implementation-in-c
+// https://www.geeksforgeeks.org/creating-a-vector-of-class-objects-in-cpp/
+// https://www.geeksforgeeks.org/vector-in-cpp-stl/
+// https://www.geeksforgeeks.org/how-to-implement-our-own-vector-class-in-c/
+// https://www.geeksforgeeks.org/program-to-create-custom-vector-class-in-c/
+
 #include <set>
 #include "Bag.h"
 

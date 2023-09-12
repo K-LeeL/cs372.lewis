@@ -160,9 +160,6 @@ class Vector {
   T* end() { return vArray + length; }
 };
 
-
-
-
 // Template parameter 'T', size_t parameter specifies size of array
 template <typename T, size_t Size>
 

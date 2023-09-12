@@ -8,6 +8,12 @@
 //   Use the linked list class that you just built to create a second version
 //   of the Bag class, replacing the vector class with your list class.
 //
+// test and set scripts from Dr. Lewis notes and includes
+// https://learn.microsoft.com/en-us/cpp/standard-library/list?view=msvc-170
+// https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1?view=net-7.0
+// https://learn.microsoft.com/en-us/cpp/standard-library/list-operators?view=msvc-170
+// https://en.cppreference.com/w/cpp/container/list
+
 
 #include <iostream>
 #include "Library.h"

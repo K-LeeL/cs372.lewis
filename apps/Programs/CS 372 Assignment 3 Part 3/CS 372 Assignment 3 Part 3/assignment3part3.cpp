@@ -12,11 +12,12 @@
 //   Adjust the list methods so that they correctly deal with this new behavior
 //   and add a method called circle that, given a starting position in the list,
 //   traverses the entire list, starting and ending at the given starting point.
+//
 // https://www.geeksforgeeks.org/circular-singly-linked-list-insertion/
-
+// https://www.geeksforgeeks.org/traversal-of-circular-linked-list/
+// https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.linkedlist-1?view=net-7.0#constructors
 
 #include <iostream>
-#include <stdexcept>
 #include "Library.h"
 
 template< typename T >

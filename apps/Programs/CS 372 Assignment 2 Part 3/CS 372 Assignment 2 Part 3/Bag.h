@@ -6,14 +6,6 @@
 
 #include <chrono>
 
-//https://codereview.stackexchange.com/questions/260324/custom-vector-implementation-in-c 
-//https://www.geeksforgeeks.org/creating-a-vector-of-class-objects-in-cpp/
-//https://www.geeksforgeeks.org/vector-in-cpp-stl/
-//https://www.geeksforgeeks.org/how-to-implement-our-own-vector-class-in-c/
-//https://www.geeksforgeeks.org/program-to-create-custom-vector-class-in-c/
-
-const int PrintInterval = 10;
-
 template< typename Thing >
 
 class ReceiptBag
@@ -74,10 +66,10 @@ public:
 
 private:
     // Store the actual items
-    vector< Thing > bagContents;
+    Vector< Thing > bagContents;
 
     // Store indices corresponding to receipts
-    vector< int > receiptTape;
+    Vector< int > receiptTape;
     int bagSize = 0;
     Receipt nextReceipt = 1;
 
@@ -101,45 +93,6 @@ private:
         for( int i = removedIndex ; i < receiptTape.size( ) - 1 ; i++ )
         {
             receiptTape[ i ] = receiptTape[ i + 1 ];
-        }
-    }
-};
-
-// Vector Test from stlmyvectest.cpp
-class VecTester
-{
-private:
-    vector< int > testVector = vector< int >( );
-
-    void fillVector( size_t cap )
-    {
-        for( int i = 0 ; i < cap ; ++i )
-        {
-            testVector.push_back( i );
-        }
-    }
-
-public:
-    void tester( )
-    {
-        size_t currentCap = testVector.capacity( );
-        std::cout << "Starting capacity: " << currentCap << std::endl;
-        for( int i = 0 ; i <= 500 ; i++ )
-        {
-            if( ( i % PrintInterval ) == 0 )
-            {
-                std::cout << "Current cap: " << currentCap << std::endl;
-            }
-            auto start = std::chrono::steady_clock::now( );
-            testVector.push_back( i );
-            auto end = std::chrono::steady_clock::now( );
-            currentCap = testVector.capacity( );
-            std::chrono::duration< double > elaspedSeconds = end - start;
-            if( ( i % PrintInterval ) == 0 )
-            {
-                std::cout << "For increase capacity to " << currentCap << " took " << elaspedSeconds.count( ) <<
-                    " seconds" << std::endl;
-            }
         }
     }
 };

@@ -5,13 +5,18 @@
 // Author: Kaylee Lewis
 //
 // Purpose:
-//   Add the `ist class to the library, with any required test code to verify
+//   Add the List class to the library, with any required test code to verify
 //   they are operating correctly.
 //
+// test and set scripts from Dr. Lewis notes and includes
+// https://learn.microsoft.com/en-us/cpp/standard-library/list?view=msvc-170
+// https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1?view=net-7.0
+// https://learn.microsoft.com/en-us/cpp/standard-library/list-operators?view=msvc-170
+// https://en.cppreference.com/w/cpp/container/list
+
 #pragma once
 
 #include <iostream>
-
 #include "Library.h"
 
 template <typename T>
