@@ -293,7 +293,6 @@ public:
         {
         }
 
-        friend class List< T >;
     };
 
     // Iterator added for test
