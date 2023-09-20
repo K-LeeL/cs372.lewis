@@ -13,8 +13,10 @@
 // (do this by traversing the list, deleting items as normal, and remember to keep the pointers straight).
 // Modify all other methods in the class to correctly ignore deleted items.
 
-#pragma once
+//https://www.geeksforgeeks.org/deletion-in-linked-list/
+
 #include <stdexcept>
+#include <iostream>
 
 template< typename T >
 class List
@@ -194,16 +196,44 @@ public:
     void traverse( void ( *doIt )( T data ) )
     {
         Node *current = head;
-        while( current != nullptr )
-        {
-            doIt( current->data );
+        while (current != nullptr) {
+            if (!current->deleted) {
+                doIt(current->data);
+            }
             current = current->next;
         }
     }
 };
 
+    void print(int data) { std::cout << data << ' '; }
+
 int main()
 {
+    List<int> List;
+
+    List.push_front(1);
+    List.push_front(2);
+    List.push_front(3);
+    List.push_front(4);
+    List.push_front(5);
+
+    std::cout << "List before any deletion: " << std::endl;
+    List.traverse(print);
+    std::cout << std::endl;
+
+    List.pop_front();
+    List.pop_back();
+
+    std::cout << "List after lazy deletion (deleted nodes ignored): ";
+    List.traverse(print);
+    std::cout << std::endl;
+
+    List.pop_front();
+    List.pop_back();
+
+    std::cout << "List after actual deletion (deleted nodes removed): ";
+    List.traverse(print);
+    std::cout << std::endl;
 
     return 0;
 }
