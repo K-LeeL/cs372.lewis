@@ -14,6 +14,7 @@
 // (NOTE: this is a rather common trick used to improve the search times on large lists.
 // Over the time, the items you most often search for will be moved towards the front of the list)
 //
+//https://www.geeksforgeeks.org/self-organizing-list-move-front-method/
 
 #include <iostream>
 #include <vector>

@@ -13,20 +13,197 @@
 // (do this by traversing the list, deleting items as normal, and remember to keep the pointers straight).
 // Modify all other methods in the class to correctly ignore deleted items.
 
-#include <iostream>
+#pragma once
+#include <stdexcept>
+
+template< typename T >
+class List
+{
+private:
+    class Node
+    {
+    public:
+        T data;
+        bool deleted;
+        Node *prev;
+        Node *next;
+
+        Node( ) : deleted( false ), prev( nullptr ), next( nullptr )
+        {
+        }
+    };
+
+    Node *head = nullptr;
+    Node *tail = nullptr;
+
+    int nodesDeleted = 0;
+    int nodesNotDeleted = 0;
+
+    void setupList( )
+    {
+        Node *newNode = new Node( );
+        newNode->next = nullptr;
+        newNode->prev = nullptr;
+        head = newNode;
+        tail = newNode;
+    }
+
+    void deleteListContents( )
+    {
+        Node *current = head;
+        Node *temp = nullptr;
+        while( current != nullptr )
+        {
+            temp = current->next;
+            delete current;
+            current = temp;
+        }
+    }
+
+    void actualDeletion( )
+    {
+        Node *current = head;
+        Node *temp = nullptr;
+        while( current != nullptr )
+        {
+            if( current->deleted )
+            {
+                if( current->prev )
+                    current->prev->next = current->next;
+                if( current->next )
+                    current->next->prev = current->prev;
+                temp = current;
+                current = current->next;
+                delete temp;
+                nodesDeleted--;
+            } else
+            {
+                current = current->next;
+            }
+        }
+    }
+
+public:
+    List( ) = default;
+
+    List( T newData )
+    {
+        setupList( );
+        head->data = newData;
+        nodesNotDeleted++;
+    }
+
+    List( List &rhs )
+    {  // copy constructor
+        deleteListContents( );
+        head = rhs.head;
+        tail = rhs.tail;
+    }
+
+    ~List( )
+    {  // And a destructor
+        deleteListContents( );
+    }
+
+    bool empty( )
+    {
+        return ( head == nullptr );
+    }
+
+    void push_front( T data )
+    {
+        if( this->empty( ) )
+        {
+            setupList( );
+            head->data = data;
+            tail = head;
+        } else
+        {
+            Node *newNode = new Node( );
+            newNode->data = data;
+            newNode->next = head;
+            newNode->prev = nullptr;
+            head = newNode;
+        }
+        nodesNotDeleted++;
+    }
+
+    void push_back( T data )
+    {
+        if( this->empty( ) )
+        {
+            setupList( );
+            head->data = data;
+            tail = head;
+        } else
+        {
+            Node *newNode = new Node( );
+            newNode->data = data;
+            newNode->next = nullptr;
+            newNode->prev = tail;
+            tail = newNode;
+            nodesNotDeleted++;
+        }
+    }
+
+    T &front( )
+    {
+        if( head->next == nullptr )
+        {
+            throw std::out_of_range( "List is empty, cannot fetch front." );
+        }
+        return head->next->data;
+    }
+
+    T &back( )
+    {
+        Node *actualTail = tail->prev;
+        return ( actualTail->data );
+    }
+
+    void pop_back( )
+    {
+        if( tail )
+        {
+            tail->deleted = true;
+            nodesDeleted++;
+            nodesNotDeleted--;
+        }
+
+        if( nodesDeleted == nodesNotDeleted )
+        {
+            actualDeletion( );
+        }
+    }
+
+    void pop_front( )
+    {
+        if( head )
+        {
+            head->deleted = true;
+            nodesDeleted++;
+            nodesNotDeleted--;
+        }
+
+        if( nodesDeleted == nodesNotDeleted )
+        {
+            actualDeletion( );
+        }
+    }
+
+    void traverse( void ( *doIt )( T data ) )
+    {
+        Node *current = head;
+        while( current != nullptr )
+        {
+            doIt( current->data );
+            current = current->next;
+        }
+    }
+};
 
 int main()
 {
-    std::cout << "Hello World!\n";
+
+    return 0;
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
