@@ -4,34 +4,111 @@
 // File:   assignment4part1.cpp
 // Author: Kaylee Lewis
 //
-// Purpose: Josepheus program using list, stack, and queue
+// Purpose: Josepheus program
+
+// https://www.interviewbit.com/blog/josephus-problem/
+
+#include <iostream>
+#include <vector>
 
 #include "Header.h"
-#include <iostream>
 
-// was curious why it was called Josephus: fun but dark video on the origin of the math behind the pogram https://www.youtube.com/watch?v=uCsD3ZGzMgE ( its a lot nicer to think about it as hot potato)
+int main() {
+  int players, moves;
 
-//Priority queue and lists : Josephus, m people, last one standing is the winner.
-
-template <typename T>
-public class Josephus {
-  public static List(int n, int m);
-
-  // Priority queue 1 to N people sit in a circle
-
-  List<int> circle;
-
-  for (int i = 1; i <= n; ++i) {
-    // circle
-    circle.push.back(i);
+  // Loop for getting the number of people
+  while (true) {
+    std::cout << "Enter the number of people playing the game: ";
+    std::cin >> players;
+    if (players > 1) {
+      break;
+    }
+    std::cerr << "Need to have more than one person to play the game. Please "
+                 "enter a number greater than 1."
+              << std::endl;
   }
 
-  // begin the game, looking for who is it
-  auto it = circle.begin();
+  // Loop for getting the number of passes
+  while (true) {
+    std::cout << "Enter the number of times the potato is passed: ";
+    std::cin >> moves;
+    if (moves >= 1) {
+      break;
+    }
+    std::cerr << "The potato has to be passed at least once. Please enter a "
+                 "number greater than 0."
+              << std::endl;
+  }
 
-  // circle around passing the hot potato
+  if (moves == 1) {
+    std::cout << "Player 1 starts with the potato and passes it one person away."
+              << std::endl;
+  } else {
+    std::cout << "Player 1 starts with the potato and passes it " << moves
+              << " people away." << std::endl;
+  }
 
-  // Eliminate the holder of the hot potato
+    CircularList<int> hotPotato;
 
-  // last one wins
+  int listSize = 0; 
+
+  for (int i = 1; i <= players; ++i) {
+    hotPotato.push_back(i);
+    listSize++;
+  }
+
+  typename CircularList<int>::Node *current = hotPotato.head->next;
+  std::vector<int> eliminatedPlayers;
+  int lastRemainingPlayer = -1;
+
+  while (listSize > 1) {
+    for (int i = 0; i <= moves -1; ++i) {
+      current = current->next;
+      if (current == hotPotato.tail) {
+        current = hotPotato.head->next;
+      }
+    }
+
+    typename CircularList<int>::Node *eliminated = current;
+    current = current->next;
+    eliminated->prev->next = eliminated->next;
+    eliminated->next->prev = eliminated->prev;
+
+    if (eliminated == hotPotato.head) {
+      hotPotato.head = hotPotato.head->next;
+    }
+    if (eliminated == hotPotato.tail) {
+      hotPotato.tail = hotPotato.tail->prev;
+    }
+
+    eliminatedPlayers.push_back(eliminated->data);
+    std::cout << "Player " << eliminated->data << " is out." << std::endl;
+
+     listSize--;
+
+    delete eliminated;
+    eliminated = nullptr;
+  }
+
+  // Update the winner
+  if (listSize == 1) {
+    lastRemainingPlayer = hotPotato.front();
+  }
+
+  if (lastRemainingPlayer != -1) {
+    std::cout << "The winner is player " << lastRemainingPlayer << std::endl;
+  } else {
+    std::cerr << "Error: No winner found." << std::endl;
+  }
+  // Print the list of eliminated players
+  std::cout << "Eliminated players: ";
+  for (size_t i = 0; i < eliminatedPlayers.size(); ++i) {
+    std::cout << "Player " << eliminatedPlayers[i];
+    if (i < eliminatedPlayers.size() - 1) {
+      std::cout << ", ";
+    }
+  }
+  std::cout << std::endl;
+
+  return 0;
 }
