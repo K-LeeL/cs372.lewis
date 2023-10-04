@@ -16,7 +16,7 @@
 //Define SequentialContainer Class
 
 template <typename T>
-class SequentialContainer {
+class SeqContainer {
  protected:
   class Node {
    public:

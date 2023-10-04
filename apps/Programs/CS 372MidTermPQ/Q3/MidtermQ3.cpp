@@ -70,18 +70,21 @@ private:
         {
             if( current->deleted )
             {
-                if( current->prev )
-                    current->prev->next = current->next;
-                if( current->next )
-                    current->next->prev = current->prev;
-                temp = current;
-                current = current->next;
-                delete temp;
-                nodesDeleted--;
+              if (current->prev) current->prev->next = current->next;
+              if (current->next) current->next->prev = current->prev;
+              if (current == head) head = current->next;
+              if (current == tail) tail = current->prev;
+
+              temp = current;
+              current = current->next;
+              delete temp;
+              nodesDeleted--;
             } else
             {
                 current = current->next;
             }
+            nodesNotDeleted -= nodesDeleted;
+            nodesDeleted = 0;
         }
     }
 
@@ -128,6 +131,7 @@ public:
             head = newNode;
         }
         nodesNotDeleted++;
+
     }
 
     void push_back( T data )
@@ -191,6 +195,7 @@ public:
         {
             actualDeletion( );
         }
+
     }
 
     void traverse( void ( *doIt )( T data ) )
