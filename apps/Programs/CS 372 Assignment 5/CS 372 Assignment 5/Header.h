@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
-  
+
+template <typename T>
 class Vector {
  private:
   T* vArray = new T[1];
@@ -237,7 +238,7 @@ class Array {
   T* end() { return cArray + length; }
 };
 
-
+template <typename T>
 class SeqContainer {
  protected:
   class Node {

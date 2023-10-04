@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 
+template <typename T>
 class Vector {
  private:
   T *vArray = new T[1];
@@ -154,7 +155,6 @@ class Vector {
 
 // Template parameter 'T', size_t parameter specifies size of array
 template <typename T, size_t Size>
-
 class Array {
  private:
   T cArray[Size];
@@ -237,6 +237,7 @@ class Array {
   T *end() { return cArray + length; }
 };
 
+template <typename T>
 class SeqContainer {
  protected:
   class Node {
