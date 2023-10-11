@@ -15,9 +15,12 @@
 // the structure to be returned with random integers which you then sort ( use the STL’s sort function
 // from the algorithms library ) and then insert those integers into the Tree indicated by the reference
 // in the structure.
-//
 
+// https://codereview.stackexchange.com/questions/235220/binary-search-tree-using-templates-in-c
+
+#include <algorithm>
 #include <iostream>
+#include <cstdlib>
 #include "Header.h"
 
 template <typename T>
@@ -26,22 +29,56 @@ class Tree;
 struct BigStruct
 {
      size_t size;
-     int *vect;
+     Vector<int> *vect;
      Tree<int> *tree;
 
-     BigStruct ( size_t s ) : size ( s ) , vect ( nullptr ) , tree ( new Tree<int> ( ) )
+     BigStruct ( size_t s ) : size ( s ) , vect ( new Vector<int> ( ) ) , tree ( new Tree<int> ( ) )
      {
      }
      ~BigStruct ( )
      {
-          delete [ ] vect;
+          delete vect;
           delete tree;
      }
 };
 
+BigStruct*createBigStruct ( size_t n)
+{
+     BigStruct *struc = new BigStruct ( n );
+     for ( size_t i = 0; i < n; ++i )
+     {
+          int random_val = rand ( );
+          struc->vect->push_back ( random_val );
+     }
+     std::sort ( struc->vect->begin ( ) , struc->vect->end ( ) );
+
+     for ( size_t i = 0; i < n; ++i )
+     {
+          struc->tree->insert ( struc->vect->at ( i ) );
+     }
+
+     return struc;
+}
+
+     
 int main ( )
 {
+     size_t n = 10; 
+     BigStruct *bs = createBigStruct (n);
 
+     std::cout << "Sorted vector values: " << std::endl;
+
+     for ( size_t i = 0; i < n; ++i )
+     {
+          std::cout << bs->vect->at( i ) << std::endl;
+     }
+          std::cout << "Checking tree membership for some values: " << std::endl;
+          for ( int val : {5 , 100 , 250 , 500} )
+          {
+               std::cout << "Is " << val << " in the tree? "
+                    << ( bs->tree->member ( val ) ? "Yes" : "No" ) << std::endl;
+          }
+          delete bs;
 
      return 0;
 }
